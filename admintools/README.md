@@ -1,4 +1,4 @@
-#ducky admin scripts
+# ducky admin scripts
 
 - duck android is a simple test to run a command on an android device - idea from ![](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---Android-5.x-Lockscreen) 
 - duck web redirect just test that I could pull up a web image
