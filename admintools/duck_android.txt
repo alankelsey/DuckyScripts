@@ -1,0 +1,8 @@
+REM Type Hello workd
+Target: android
+DELAY 1000
+GUI r
+DELAY 100
+STRING cat meme
+ENTER
+DELAY 1000

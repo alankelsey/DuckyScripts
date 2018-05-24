@@ -1,0 +1,9 @@
+REM Type Hello workd
+Target: Windows
+DELAY 1000
+GUI r
+DELAY 100
+STRING C:\Program Files\internet explorer\iexplore.exe https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfucpJ2RZh9-eGWbvcafr6412efVYd958Do8WmDZVhYRxWt8df2Q
+ENTER
+DELAY 1000
+STRING Hello World

